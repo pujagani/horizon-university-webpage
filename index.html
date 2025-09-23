@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horizon University</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+
+        /* University Colors */
+        .color-maroon {
+            background-color: #800000;
+        }
+        .color-gold {
+            color: #FFD700;
+        }
+
+        /* The Safari-only bug for the navigation link */
+        @media screen and (-webkit-min-device-pixel-ratio:0) {
+            .safari-bug-link {
+                /* This is a visual bug that only appears in Safari */
+                font-size: 1.1rem; /* Intentionally larger on Safari */
+                color: #ff5733;   /* Intentionally different color */
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <!-- Navbar -->
+    <header class="bg-white shadow-lg py-4">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-extrabold text-[#800000]">Horizon University</a>
+            <nav>
+                <ul class="flex space-x-6">
+                    <li><a href="#" class="text-gray-600 hover:text-[#800000] font-medium safari-bug-link">Academics</a></li>
+                    <li><a href="#" class="text-gray-600 hover:text-[#800000] font-medium">Admissions</a></li>
+                    <li><a href="#" class="text-gray-600 hover:text-[#800000] font-medium">Campus Life</a></li>
+                    <li><a href="#" class="text-gray-600 hover:text-[#800000] font-medium">Alumni</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section with Responsive Bug -->
+    <section class="color-maroon text-white py-20 lg:py-32">
+        <div class="container mx-auto px-4 text-center">
+            <!-- Bug: On tablet screens, the layout shifts due to this class -->
+            <div class="md:w-3/4 mx-auto md:text-left md:space-y-6">
+                <h1 class="text-4xl lg:text-6xl font-extrabold leading-tight">Shaping Tomorrow's Leaders <br class="hidden md:inline">Today</h1>
+                <p class="text-lg mt-4 max-w-2xl mx-auto md:mx-0">
+                    Join a community dedicated to intellectual growth, groundbreaking research, and a global perspective that prepares you for a dynamic future.
+                </p>
+                <div class="mt-8 flex justify-center md:justify-start">
+                    <button class="bg-white text-[#800000] px-8 py-3 rounded-full font-bold shadow-lg hover:bg-gray-200 transition-all duration-300">
+                        Explore Programs
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Visual Discrepancy Section -->
+    <section class="py-20 bg-gray-50" id="visual-bug">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="md:w-1/2 mb-8 md:mb-0">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4">A Legacy of Excellence</h2>
+                    <p class="text-gray-600 leading-relaxed">
+                        For over a century, Horizon University has been at the forefront of innovation, fostering a culture of curiosity and discovery. Our alumni have gone on to lead industries and change the world.
+                    </p>
+                    <ul class="mt-6 space-y-4 text-gray-700">
+                        <li class="flex items-center space-x-3">
+                            <span class="text-[#800000]">&check;</span>
+                            <span>Top-ranked academic programs.</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <span class="text-[#800000]">&check;</span>
+                            <span>Cutting-edge research facilities.</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <span class="text-[#800000]">&check;</span>
+                            <span>A diverse and vibrant campus community.</span>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Visual Bug: Image is shifted down by 10px -->
+                <div class="md:w-1/2 flex justify-center md:justify-end mt-2 md:mt-0 md:ml-8">
+                    <img src="https://placehold.co/500x300/F5D76E/333333?text=Campus+Image" alt="A view of the university campus" class="rounded-lg shadow-lg transform -translate-y-2">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- API & Debugging Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">Request More Information</h2>
+            <div class="flex flex-col lg:flex-row items-center justify-center space-y-6 lg:space-y-0 lg:space-x-8">
+                
+                <!-- JSON Formatter Demo -->
+                <div class="bg-gray-100 p-8 rounded-lg shadow-md w-full max-w-md">
+                    <h3 class="text-xl font-semibold mb-4 text-center">Unformatted Course Data</h3>
+                    <div id="json-output" class="bg-white p-4 rounded-lg overflow-x-auto text-sm whitespace-pre-wrap">
+                        { "status": "success", "data": [ { "course_id": "CS101", "name": "Introduction to Computer Science", "credits": 3, "instructor": "Dr. Miller" }, { "course_id": "HIST205", "name": "World History Since 1500", "credits": 4, "instructor": "Prof. Davis" }, { "course_id": "LIT302", "name": "Modern American Poetry", "credits": 3, "instructor": "Dr. Chen" } ] }
+                    </div>
+                    <button id="fetch-json-btn" class="mt-4 w-full bg-[#800000] text-white px-6 py-3 rounded-full font-semibold hover:bg-[#a52a2a] transition-all duration-300">
+                        Fetch Course Schedule
+                    </button>
+                </div>
+
+                <!-- Bug Capture & Console Bug Demo -->
+                <div class="bg-gray-100 p-8 rounded-lg shadow-md w-full max-w-md">
+                    <h3 class="text-xl font-semibold mb-4 text-center">Request a Campus Tour</h3>
+                    <form id="contact-form" class="space-y-4">
+                        <div>
+                            <label for="name" class="block text-gray-700">Name</label>
+                            <input type="text" id="name" name="name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#800000] focus:ring focus:ring-[#800000] focus:ring-opacity-50">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-gray-700">Email</label>
+                            <input type="email" id="email" name="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#800000] focus:ring focus:ring-[#800000] focus:ring-opacity-50">
+                        </div>
+                        <button type="submit" class="w-full bg-[#800000] text-white px-6 py-3 rounded-full font-semibold hover:bg-[#a52a2a] transition-all duration-300">
+                            Submit Request
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Cookie-dependent feature -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4 text-center" id="cookie-feature">
+            <h2 class="text-3xl font-bold text-gray-800 mb-4">Alumni Section</h2>
+            <p class="text-gray-600 mb-6">This section is only visible to authenticated alumni. Use the Cookie Manager to test it!</p>
+            <div id="hidden-content" class="p-8 bg-gray-200 rounded-lg shadow-inner text-gray-700 hidden">
+                <p class="font-bold text-xl mb-2">Welcome Back, Alumni!</p>
+                <p>This is a secret portal you can only see with the "alumni_access" cookie.</p>
+            </div>
+            <button id="set-cookie-btn" class="mt-4 bg-[#800000] text-white px-6 py-3 rounded-full font-semibold hover:bg-[#a52a2a] transition-all duration-300">
+                Simulate Alumni Login
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2023 Horizon University. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- Workshop Scripting ---
+
+        // 1. Bug Capture / Console Bug Demo
+        document.getElementById('contact-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            if (!email) {
+                // This error is logged to the console but no visible error message is shown.
+                // This demonstrates the value of the Bug Capture tool.
+                console.error('Submission failed: The email field is empty.');
+            } else {
+                console.log('Form submitted successfully!');
+            }
+        });
+
+        // 2. JSON Formatter Demo
+        document.getElementById('fetch-json-btn').addEventListener('click', function() {
+            const rawJson = { "status": "success", "data": [ { "course_id": "CS101", "name": "Introduction to Computer Science", "credits": 3, "instructor": "Dr. Miller" }, { "course_id": "HIST205", "name": "World History Since 1500", "credits": 4, "instructor": "Prof. Davis" }, { "course_id": "LIT302", "name": "Modern American Poetry", "credits": 3, "instructor": "Dr. Chen" } ] };
+            document.getElementById('json-output').textContent = JSON.stringify(rawJson);
+        });
+
+        // 3. Cookie Manager Demo
+        const hiddenContent = document.getElementById('hidden-content');
+        const setCookieBtn = document.getElementById('set-cookie-btn');
+        
+        // Function to check for a specific cookie
+        function checkAlumniCookie() {
+            if (document.cookie.split(';').some((item) => item.trim().startsWith('alumni_access='))) {
+                hiddenContent.classList.remove('hidden');
+            } else {
+                hiddenContent.classList.add('hidden');
+            }
+        }
+        
+        // Set cookie on button click
+        setCookieBtn.addEventListener('click', function() {
+            document.cookie = "alumni_access=true; path=/; max-age=" + (60 * 60 * 24); // Expires in 1 day
+            checkAlumniCookie();
+        });
+
+        // Check on page load
+        window.onload = checkAlumniCookie;
+    </script>
+</body>
+</html>
