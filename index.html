@@ -157,15 +157,20 @@
     <!-- Cookie-dependent feature -->
     <section class="py-20 bg-gray-50">
         <div class="container mx-auto px-4 text-center" id="cookie-feature">
-            <h2 class="text-3xl font-bold text-gray-800 mb-4">Alumni Section</h2>
-            <p class="text-gray-600 mb-6">This section is only visible to authenticated alumni. Use the Cookie Manager to test it!</p>
-            <div id="hidden-content" class="p-8 bg-gray-200 rounded-lg shadow-inner text-gray-700 hidden">
-                <p class="font-bold text-xl mb-2">Welcome Back, Alumni!</p>
-                <p>This is a secret portal you can only see with the "alumni_access" cookie.</p>
+            <h2 class="text-3xl font-bold text-gray-800 mb-4">Campus Life Events</h2>
+            <!-- Feature Flag: Initially hidden, controlled by a cookie -->
+            <div id="events-coming-soon" class="p-8 bg-gray-200 rounded-lg shadow-inner text-gray-700">
+                <p class="font-bold text-xl mb-2">Events Coming Soon!</p>
+                <p>Check back later for our exciting lineup of campus activities.</p>
             </div>
-            <button id="set-cookie-btn" class="mt-4 bg-[#800000] text-white px-6 py-3 rounded-full font-semibold hover:bg-[#a52a2a] transition-all duration-300">
-                Simulate Alumni Login
-            </button>
+            <div id="events-content" class="p-8 bg-gray-200 rounded-lg shadow-inner text-gray-700 hidden">
+                <p class="font-bold text-xl mb-2">Welcome! Here are the upcoming events:</p>
+                <ul class="mt-4 space-y-2">
+                    <li>Innovation Summit - October 26</li>
+                    <li>Annual Career Fair - November 10</li>
+                    <li>Community Volunteer Day - November 18</li>
+                </ul>
+            </div>
         </div>
     </section>
 
@@ -198,27 +203,24 @@
             document.getElementById('json-output').textContent = JSON.stringify(rawJson);
         });
 
-        // 3. Cookie Manager Demo
-        const hiddenContent = document.getElementById('hidden-content');
-        const setCookieBtn = document.getElementById('set-cookie-btn');
-        
-        // Function to check for a specific cookie
-        function checkAlumniCookie() {
-            if (document.cookie.split(';').some((item) => item.trim().startsWith('alumni_access='))) {
-                hiddenContent.classList.remove('hidden');
+        // 3. Feature Flag Demo with Cookie Manager
+        const eventsComingSoon = document.getElementById('events-coming-soon');
+        const eventsContent = document.getElementById('events-content');
+
+        // Function to check for the feature flag cookie
+        function checkFeatureFlag() {
+            const isFeatureEnabled = document.cookie.split(';').some((item) => item.trim().startsWith('feature_flag_events=true'));
+            if (isFeatureEnabled) {
+                eventsComingSoon.classList.add('hidden');
+                eventsContent.classList.remove('hidden');
             } else {
-                hiddenContent.classList.add('hidden');
+                eventsComingSoon.classList.remove('hidden');
+                eventsContent.classList.add('hidden');
             }
         }
         
-        // Set cookie on button click
-        setCookieBtn.addEventListener('click', function() {
-            document.cookie = "alumni_access=true; path=/; max-age=" + (60 * 60 * 24); // Expires in 1 day
-            checkAlumniCookie();
-        });
-
-        // Check on page load
-        window.onload = checkAlumniCookie;
+        // Initial check on page load
+        window.onload = checkFeatureFlag;
         
         // NEW: JavaScript for the Safari-specific bug
         document.addEventListener('DOMContentLoaded', (event) => {
