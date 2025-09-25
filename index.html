@@ -20,14 +20,32 @@
         .color-gold {
             color: #FFD700;
         }
-
-        /* The Safari-only bug for the navigation link */
-        @media screen and (-webkit-min-device-pixel-ratio:0) {
-            .safari-bug-link {
-                /* This is a visual bug that only appears in Safari */
-                font-size: 1.1rem; /* Intentionally larger on Safari */
-                color: #ff5733;   /* Intentionally different color */
+        
+        /* The new, obvious responsive bug */
+        .mobile-bug-box {
+            display: none; /* Hide on desktop by default */
+        }
+        @media (max-width: 768px) {
+            .mobile-bug-box {
+                display: block;
+                position: absolute;
+                top: 20px;
+                right: -50px; /* Force it off-screen on small devices */
+                background-color: #ff0000;
+                color: white;
+                padding: 10px;
+                border-radius: 8px;
+                font-weight: bold;
+                z-index: 1000;
             }
+        }
+        
+        /* CSS for the new Safari-specific bug */
+        .safari-bug {
+            color: #ff0000;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -39,7 +57,7 @@
             <a href="#" class="text-2xl font-extrabold text-[#800000]">Horizon University</a>
             <nav>
                 <ul class="flex space-x-6">
-                    <li><a href="#" class="text-gray-600 hover:text-[#800000] font-medium safari-bug-link">Academics</a></li>
+                    <li><a href="#" class="text-gray-600 hover:text-[#800000] font-medium" id="academics-link">Academics</a></li>
                     <li><a href="#" class="text-gray-600 hover:text-[#800000] font-medium">Admissions</a></li>
                     <li><a href="#" class="text-gray-600 hover:text-[#800000] font-medium">Campus Life</a></li>
                     <li><a href="#" class="text-gray-600 hover:text-[#800000] font-medium">Alumni</a></li>
@@ -48,21 +66,20 @@
         </div>
     </header>
 
-    <!-- Hero Section with Responsive Bug -->
-    <section class="color-maroon text-white py-20 lg:py-32">
+    <!-- Hero Section with Glaring Responsive Bug -->
+    <section class="color-maroon text-white py-20 lg:py-32 relative">
         <div class="container mx-auto px-4 text-center">
-            <!-- Bug: On tablet screens, the layout shifts due to this class -->
-            <div class="md:w-3/4 mx-auto md:text-left md:space-y-6">
-                <h1 class="text-4xl lg:text-6xl font-extrabold leading-tight">Shaping Tomorrow's Leaders <br class="hidden md:inline">Today</h1>
-                <p class="text-lg mt-4 max-w-2xl mx-auto md:mx-0">
-                    Join a community dedicated to intellectual growth, groundbreaking research, and a global perspective that prepares you for a dynamic future.
-                </p>
-                <div class="mt-8 flex justify-center md:justify-start">
-                    <button class="bg-white text-[#800000] px-8 py-3 rounded-full font-bold shadow-lg hover:bg-gray-200 transition-all duration-300">
-                        Explore Programs
-                    </button>
-                </div>
+            <h1 class="text-4xl lg:text-6xl font-extrabold leading-tight">Shaping Tomorrow's Leaders <br class="hidden md:inline">Today</h1>
+            <p class="text-lg mt-4 max-w-2xl mx-auto">
+                Join a community dedicated to intellectual growth, groundbreaking research, and a global perspective that prepares you for a dynamic future.
+            </p>
+            <div class="mt-8 flex justify-center">
+                <button class="bg-white text-[#800000] px-8 py-3 rounded-full font-bold shadow-lg hover:bg-gray-200 transition-all duration-300">
+                    Explore Programs
+                </button>
             </div>
+            <!-- The new responsive bug element -->
+            <div class="mobile-bug-box">RESPONSIVE BUG!</div>
         </div>
     </section>
 
@@ -202,6 +219,16 @@
 
         // Check on page load
         window.onload = checkAlumniCookie;
+        
+        // NEW: JavaScript for the Safari-specific bug
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+            const academicsLink = document.getElementById('academics-link');
+            
+            if (isSafari && academicsLink) {
+                academicsLink.classList.add('safari-bug');
+            }
+        });
     </script>
 </body>
 </html>
